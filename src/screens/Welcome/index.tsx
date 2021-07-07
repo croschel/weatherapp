@@ -15,6 +15,7 @@ import { colors } from '~/global/styles/theme';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import ModalView from '~/components/ModalView';
 import { useState } from 'react';
+import { LocationInput } from '~/components/LocationInput';
 
 export const Welcome = () => {
   const navigation = useNavigation();
@@ -62,8 +63,8 @@ export const Welcome = () => {
         </TouchableOpacity>
       </SafeAreaView>
       <ModalView visible={showModal} closeModal={onCloseModal}>
-        <View>
-          <Text>Hello Modal</Text>
+        <View style={styles.contentModal}>
+          <LocationInput onPress={() => {}} />
         </View>
       </ModalView>
     </Background>
