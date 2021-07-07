@@ -11,4 +11,7 @@ export const colors = {
   overlay: 'rgba(0,0,0,0.7)',
   highlight: '#ABB1CC',
   heading: '#DDE3F0',
+
+  cancel: '#991F36',
+  confirm: '#32BD50',
 };
