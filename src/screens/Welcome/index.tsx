@@ -13,9 +13,20 @@ import { SelectAddress } from '~/components/SelectAddress';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '~/global/styles/theme';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import ModalView from '~/components/ModalView';
+import { useState } from 'react';
 
 export const Welcome = () => {
   const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
+
+  const chooseLocationModal = () => {
+    setShowModal(true);
+  };
+  const onCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <Background>
       <SafeAreaView style={styles.container}>
@@ -32,7 +43,7 @@ export const Welcome = () => {
             <SelectAddress
               location="Campinas, SP"
               theme="light"
-              onPress={() => {}}
+              onPress={() => chooseLocationModal()}
             />
           </View>
         </View>
@@ -50,6 +61,11 @@ export const Welcome = () => {
           </View>
         </TouchableOpacity>
       </SafeAreaView>
+      <ModalView visible={showModal} closeModal={onCloseModal}>
+        <View>
+          <Text>Hello Modal</Text>
+        </View>
+      </ModalView>
     </Background>
   );
 };
