@@ -53,4 +53,5 @@ export const styles = StyleSheet.create({
     color: colors.confirm,
     fontSize: 20,
   },
+  contentModal: {},
 });
