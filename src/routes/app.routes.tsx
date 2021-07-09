@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Home } from '~/screens/Home';
 import { Welcome } from '~/screens/Welcome';
+import { Details } from '~/screens/Details/indext';
 
 const Stack = createStackNavigator();
 
@@ -11,6 +12,7 @@ export const MainRoutes = () => {
     <Stack.Navigator initialRouteName="Welcome" headerMode="none">
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );
 };

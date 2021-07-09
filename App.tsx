@@ -7,11 +7,6 @@ import { colors } from '~/global/styles/theme';
 const App = () => {
   return (
     <>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
-      />
       <Routes />
     </>
   );

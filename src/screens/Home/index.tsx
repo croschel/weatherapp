@@ -9,12 +9,20 @@ import SunCloud from '~/assets/sun-cloud.png';
 import { styles } from './styles';
 import { InfoTempBox } from './InfoTempBox';
 import { ScrollTimeTemp } from './ScrollTimeTemp';
+import { useNavigation } from '@react-navigation/native';
+import { FlexStatusBar } from '~/components/FlexStatusBar';
 
 export const Home = () => {
+  const navigation = useNavigation();
+
+  const handleDetails = () => {
+    navigation.navigate('Details');
+  };
   return (
     <GradientBackground
       firstColor={colors.coldInitial}
       secondColor={colors.coldEnd}>
+      <FlexStatusBar theme="dark" />
       <View style={styles.container}>
         <View style={styles.contentHeader}>
           <SelectAddress
@@ -22,7 +30,7 @@ export const Home = () => {
             onPress={() => {}}
             location="Campinas, SP"
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleDetails()}>
             <Icon name="date-range" size={32} color={colors.primary} />
           </TouchableOpacity>
         </View>

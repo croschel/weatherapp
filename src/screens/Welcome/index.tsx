@@ -16,6 +16,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import ModalView from '~/components/ModalView';
 import { useState } from 'react';
 import { LocationInput } from '~/components/LocationInput';
+import { FlexStatusBar } from '~/components/FlexStatusBar';
 
 export const Welcome = () => {
   const navigation = useNavigation();
@@ -30,6 +31,7 @@ export const Welcome = () => {
 
   return (
     <Background>
+      <FlexStatusBar theme="light" />
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <Image style={styles.image} source={SunWeather} />
