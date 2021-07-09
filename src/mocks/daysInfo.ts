@@ -1,0 +1,51 @@
+export const daysInfo = [
+  {
+    id: '1',
+    day: 'Segunda',
+    maxTemp: 28,
+    minTemp: 21,
+    type: 'cloud',
+  },
+  {
+    id: '2',
+    day: 'Terça',
+    maxTemp: 26,
+    minTemp: 18,
+    type: 'sun',
+  },
+  {
+    id: '3',
+    day: 'Quarta',
+    maxTemp: 27,
+    minTemp: 22,
+    type: 'cloud-rain',
+  },
+  {
+    id: '4',
+    day: 'Quinta',
+    maxTemp: 24,
+    minTemp: 16,
+    type: 'cloud-lightning',
+  },
+  {
+    id: '5',
+    day: 'Sexta',
+    maxTemp: 32,
+    minTemp: 24,
+    type: 'sun',
+  },
+  {
+    id: '6',
+    day: 'Sabado',
+    maxTemp: 29,
+    minTemp: 22,
+    type: 'sun',
+  },
+  {
+    id: '7',
+    day: 'Domingo',
+    maxTemp: 21,
+    minTemp: 12,
+    type: 'cloud-rain',
+  },
+];
