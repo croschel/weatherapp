@@ -19,4 +19,5 @@ export const styles = StyleSheet.create({
   contentImage: {
     alignItems: 'center',
   },
+  contentModal: {},
 });
