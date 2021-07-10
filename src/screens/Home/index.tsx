@@ -19,7 +19,7 @@ import { useWeather } from '~/hooks/weather';
 export const Home = () => {
   const { address } = useLocation();
   const { weatherData } = useWeather();
-  const { description } = weatherData.weather[0];
+  const { description, main } = weatherData.weather[0];
   const { temp, humidity } = weatherData.main;
   const { speed } = weatherData.wind;
 
@@ -38,9 +38,7 @@ export const Home = () => {
     navigation.navigate('Details');
   };
   return (
-    <GradientBackground
-      firstColor={colors.coldInitial}
-      secondColor={colors.coldEnd}>
+    <GradientBackground weather={main}>
       <FlexStatusBar theme="dark" />
       <View style={styles.container}>
         <View style={styles.contentHeader}>
