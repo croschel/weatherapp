@@ -13,8 +13,16 @@ import { useNavigation } from '@react-navigation/native';
 import { FlexStatusBar } from '~/components/FlexStatusBar';
 import ModalView from '~/components/ModalView';
 import { LocationInput } from '~/components/LocationInput';
+import { useLocation } from '~/hooks/location';
+import { useWeather } from '~/hooks/weather';
 
 export const Home = () => {
+  const { address } = useLocation();
+  const { weatherData } = useWeather();
+  const { description } = weatherData.weather[0];
+  const { temp, humidity } = weatherData.main;
+  const { speed } = weatherData.wind;
+
   const navigation = useNavigation();
 
   const [showModal, setShowModal] = useState(false);
@@ -39,7 +47,7 @@ export const Home = () => {
           <SelectAddress
             theme="dark"
             onPress={() => chooseLocationModal()}
-            location="Campinas, SP"
+            location={address}
           />
           <TouchableOpacity onPress={() => handleDetails()}>
             <Icon name="date-range" size={32} color={colors.primary} />
@@ -48,7 +56,12 @@ export const Home = () => {
         <View style={styles.contentImage}>
           <Image style={styles.image} source={SunCloud} />
         </View>
-        <InfoTempBox temperature={28} precipitation={8} wind={47} />
+        <InfoTempBox
+          title={description}
+          temperature={Number(temp.toFixed(1))}
+          precipitation={humidity}
+          wind={speed}
+        />
         <ScrollTimeTemp />
       </View>
       <ModalView visible={showModal} closeModal={onCloseModal}>

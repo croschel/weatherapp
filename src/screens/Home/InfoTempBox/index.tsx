@@ -6,19 +6,21 @@ import { colors } from '~/global/styles/theme';
 import { styles } from './styles';
 
 interface InfoTempBoxProps {
+  title: string;
   temperature: number;
   wind: number;
   precipitation: number;
 }
 
 export const InfoTempBox = ({
+  title,
   temperature,
   wind,
   precipitation,
 }: InfoTempBoxProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nublado</Text>
+      <Text style={styles.title}>{title}</Text>
       <Text style={styles.tempText}>{`${temperature}°`}</Text>
       <View style={styles.footerInfo}>
         <View style={styles.leftFooterInfo}>
@@ -27,7 +29,7 @@ export const InfoTempBox = ({
         </View>
         <View style={styles.rightFooterInfo}>
           <Icon name="droplet" size={15} color={colors.primary} />
-          <Text style={styles.footerText}>{`${precipitation}°`}</Text>
+          <Text style={styles.footerText}>{`${precipitation}%`}</Text>
         </View>
       </View>
     </View>

@@ -31,5 +31,6 @@ export const styles = StyleSheet.create({
   },
   footerText: {
     marginLeft: 2,
+    color: colors.secondary,
   },
 });

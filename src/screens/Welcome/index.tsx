@@ -21,9 +21,12 @@ import { LocationInput } from '~/components/LocationInput';
 import { FlexStatusBar } from '~/components/FlexStatusBar';
 import { useEffect } from 'react';
 import { useLocation } from '~/hooks/location';
+import { useWeather } from '~/hooks/weather';
 
 export const Welcome = () => {
   const navigation = useNavigation();
+  const { geometry } = useLocation();
+  const { getWeather } = useWeather();
   const [showModal, setShowModal] = useState(false);
 
   const { address, loading } = useLocation();
@@ -34,8 +37,13 @@ export const Welcome = () => {
   const onCloseModal = () => {
     setShowModal(false);
   };
-  console.log('address :: ', address);
-  console.log('loading :: ', loading);
+
+  const handleNextButton = () => {
+    const { lat, lng } = geometry;
+    getWeather(lat, lng);
+    navigation.navigate('Home');
+  };
+
   return (
     <Background>
       <FlexStatusBar theme="light" />
@@ -67,7 +75,8 @@ export const Welcome = () => {
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
+          disabled={loading || address === 'buscando'}
+          onPress={() => handleNextButton()}
           style={styles.acceptButton}>
           <View style={styles.buttonContent}>
             <Text style={styles.textButton}>Prosseguir</Text>
