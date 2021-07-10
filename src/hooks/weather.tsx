@@ -47,15 +47,18 @@ type WeatherData = {
 type WeatherContextData = {
   getWeather: (lat: number, lon: number) => Promise<void>;
   weatherData: WeatherData;
+  loadingWeather: boolean;
 };
 
 export const WeatherContext = createContext({} as WeatherContextData);
 
 const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [weatherData, setWeatherData] = useState({} as WeatherData);
+  const [loadingWeather, setLoadingWeather] = useState(true);
 
   const getWeather = async (lat: number, lon: number) => {
     try {
+      setLoadingWeather(true);
       const response = await weatherAPI.get('', {
         params: {
           lat,
@@ -71,6 +74,8 @@ const WeatherProvider = ({ children }: WeatherProviderProps) => {
       Alert.alert(
         'Não con seguimos buscar as informações de temperatura, por favor tente novamente.'
       );
+    } finally {
+      setLoadingWeather(false);
     }
   };
 
@@ -79,6 +84,7 @@ const WeatherProvider = ({ children }: WeatherProviderProps) => {
       value={{
         getWeather,
         weatherData,
+        loadingWeather,
       }}>
       {children}
     </WeatherContext.Provider>

@@ -8,11 +8,11 @@ import { MainRoutes } from './app.routes';
 const Routes = () => {
   return (
     <NavigationContainer>
-      <LocationProvider>
-        <WeatherProvider>
+      <WeatherProvider>
+        <LocationProvider>
           <MainRoutes />
-        </WeatherProvider>
-      </LocationProvider>
+        </LocationProvider>
+      </WeatherProvider>
     </NavigationContainer>
   );
 };

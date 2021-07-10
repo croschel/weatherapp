@@ -25,8 +25,8 @@ import { useWeather } from '~/hooks/weather';
 
 export const Welcome = () => {
   const navigation = useNavigation();
-  const { geometry } = useLocation();
-  const { getWeather } = useWeather();
+  const { loadingWeather } = useWeather();
+
   const [showModal, setShowModal] = useState(false);
 
   const { address, loading } = useLocation();
@@ -39,8 +39,6 @@ export const Welcome = () => {
   };
 
   const handleNextButton = () => {
-    const { lat, lng } = geometry;
-    getWeather(lat, lng);
     navigation.navigate('Home');
   };
 
@@ -73,20 +71,21 @@ export const Welcome = () => {
             )}
           </View>
         </View>
-
-        <TouchableOpacity
-          disabled={loading || address === 'buscando'}
-          onPress={() => handleNextButton()}
-          style={styles.acceptButton}>
-          <View style={styles.buttonContent}>
-            <Text style={styles.textButton}>Prosseguir</Text>
-            <Icon
-              name="keyboard-arrow-right"
-              size={25}
-              color={colors.confirm}
-            />
-          </View>
-        </TouchableOpacity>
+        {!loadingWeather && (
+          <TouchableOpacity
+            disabled={loading || address === 'buscando'}
+            onPress={() => handleNextButton()}
+            style={styles.acceptButton}>
+            <View style={styles.buttonContent}>
+              <Text style={styles.textButton}>Prosseguir</Text>
+              <Icon
+                name="keyboard-arrow-right"
+                size={25}
+                color={colors.confirm}
+              />
+            </View>
+          </TouchableOpacity>
+        )}
       </SafeAreaView>
       <ModalView visible={showModal} closeModal={onCloseModal}>
         <View style={styles.contentModal}>

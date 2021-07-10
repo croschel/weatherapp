@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { GOOGLE_API_KEY } from '@env';
 import { useState } from 'react';
 import { Alert } from 'react-native';
+import { useWeather } from './weather';
 
 type Geometry = {
   lat: number;
@@ -24,6 +25,7 @@ interface LocationProviderProps {
 export const LocationContext = createContext({} as LocationContextData);
 
 const LocationProvider = ({ children }: LocationProviderProps) => {
+  const { getWeather } = useWeather();
   const [loading, setLoading] = useState<boolean>(true);
   const [address, setAddress] = useState<string>('buscando');
   const [geometry, setGeometry] = useState({} as Geometry);
@@ -45,7 +47,7 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
           setAddress(cityState);
           const { lat, lng } = response.data.results[0].geometry.location;
           setGeometry({ lat, lng });
-
+          getWeather(lat, lng);
           // console.log('location results :: ', lat);
         },
         (error) => {
