@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 import { Background } from '~/components/Background';
 import SunWeather from '~/assets/sun-cold.png';
 import { styles } from './styles';
@@ -17,6 +18,7 @@ import ModalView from '~/components/ModalView';
 import { useState } from 'react';
 import { LocationInput } from '~/components/LocationInput';
 import { FlexStatusBar } from '~/components/FlexStatusBar';
+import { useEffect } from 'react';
 
 export const Welcome = () => {
   const navigation = useNavigation();
@@ -28,6 +30,19 @@ export const Welcome = () => {
   const onCloseModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position);
+      },
+      (error) => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    );
+  }, []);
 
   return (
     <Background>
