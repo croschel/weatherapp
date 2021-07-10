@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '~/global/styles/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,9 +15,12 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 16,
   },
-  hour: {},
+  hour: {
+    color: colors.secondary,
+  },
   temp: {
     fontSize: 28,
     marginLeft: 8,
+    color: colors.primary,
   },
 });

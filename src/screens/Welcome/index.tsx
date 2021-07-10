@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import { Background } from '~/components/Background';
@@ -19,10 +20,13 @@ import { useState } from 'react';
 import { LocationInput } from '~/components/LocationInput';
 import { FlexStatusBar } from '~/components/FlexStatusBar';
 import { useEffect } from 'react';
+import { useLocation } from '~/hooks/location';
 
 export const Welcome = () => {
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
+
+  const { address, loading } = useLocation();
 
   const chooseLocationModal = () => {
     setShowModal(true);
@@ -30,20 +34,8 @@ export const Welcome = () => {
   const onCloseModal = () => {
     setShowModal(false);
   };
-
-  useEffect(() => {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        console.log(position);
-      },
-      (error) => {
-        // See error code charts below.
-        console.log(error.code, error.message);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
-  }, []);
-
+  console.log('address :: ', address);
+  console.log('loading :: ', loading);
   return (
     <Background>
       <FlexStatusBar theme="light" />
@@ -58,11 +50,19 @@ export const Welcome = () => {
             <Text style={styles.locationLabel}>
               Sua localização está correta?
             </Text>
-            <SelectAddress
-              location="Campinas, SP"
-              theme="light"
-              onPress={() => chooseLocationModal()}
-            />
+            {loading || address === 'buscando' ? (
+              <ActivityIndicator
+                style={{ marginTop: 16 }}
+                size="large"
+                color={colors.heading}
+              />
+            ) : (
+              <SelectAddress
+                location={address}
+                theme="light"
+                onPress={() => chooseLocationModal()}
+              />
+            )}
           </View>
         </View>
 
