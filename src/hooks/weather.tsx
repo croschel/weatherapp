@@ -23,6 +23,13 @@ type WeatherData = {
     }
   ];
   base: string;
+  sys: {
+    country: string;
+    id: number;
+    sunrise: Date;
+    sunset: Date;
+    type: number;
+  };
   main: {
     temp: number;
     feels_like: number;
