@@ -19,23 +19,18 @@ export const TempCard = ({ hour, temperature }: TempCardProps) => {
   switch (main) {
     case 'Thunderstorm':
       color = colors.rainInitial;
-
       break;
     case 'Drizzle':
       color = colors.rainInitial;
-
       break;
     case 'Rain':
       color = colors.rainInitial;
-
       break;
     case 'Snow':
       color = colors.coldInitial;
-
       break;
     case 'Clear':
       color = colors.sunnyInitial;
-
       break;
     case 'Clouds':
       color = colors.coldInitial;
