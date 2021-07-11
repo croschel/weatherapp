@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   contentModal: {},
   buttonMoreInfo: {
     padding: 16,
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 16,
     borderColor: colors.secondary,
     marginTop: 24,

@@ -17,7 +17,7 @@ type WeatherData = {
   weather: [
     {
       id: number;
-      main: string; // vamos verificar as possibilidades Cloud etc
+      main: 'Thunderstorm' | 'Drizzle' | 'Rain' | 'Snow' | 'Clear' | 'Clouds'; // vamos verificar as possibilidades Cloud etc
       description: string;
       icon: string;
     }

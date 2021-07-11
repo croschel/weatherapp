@@ -34,6 +34,10 @@ export const Home = () => {
     setShowModal(false);
   };
 
+  const handleNews = () => {
+    navigation.navigate('News');
+  };
+
   const handleDetails = () => {
     navigation.navigate('Details');
   };
@@ -47,7 +51,7 @@ export const Home = () => {
             onPress={() => chooseLocationModal()}
             location={address}
           />
-          <TouchableOpacity onPress={() => handleDetails()}>
+          <TouchableOpacity onPress={() => handleNews()}>
             <Icon name="date-range" size={32} color={colors.primary} />
           </TouchableOpacity>
         </View>
@@ -59,7 +63,9 @@ export const Home = () => {
           wind={speed}
         />
         <ScrollTimeTemp />
-        <TouchableOpacity style={styles.buttonMoreInfo}>
+        <TouchableOpacity
+          onPress={() => handleDetails()}
+          style={styles.buttonMoreInfo}>
           <Text style={styles.textMoreInfo}>Mais Informações</Text>
         </TouchableOpacity>
       </View>
