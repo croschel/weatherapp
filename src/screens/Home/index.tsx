@@ -5,7 +5,6 @@ import { GradientBackground } from '~/components/GradientBackground';
 import { SelectAddress } from '~/components/SelectAddress';
 import { colors } from '~/global/styles/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import SunCloud from '~/assets/sun-cloud.png';
 import { styles } from './styles';
 import { InfoTempBox } from './InfoTempBox';
 import { ScrollTimeTemp } from './ScrollTimeTemp';
@@ -15,6 +14,7 @@ import ModalView from '~/components/ModalView';
 import { LocationInput } from '~/components/LocationInput';
 import { useLocation } from '~/hooks/location';
 import { useWeather } from '~/hooks/weather';
+import { ImageContent } from './ImageContent';
 
 export const Home = () => {
   const { address } = useLocation();
@@ -51,9 +51,7 @@ export const Home = () => {
             <Icon name="date-range" size={32} color={colors.primary} />
           </TouchableOpacity>
         </View>
-        <View style={styles.contentImage}>
-          <Image style={styles.image} source={SunCloud} />
-        </View>
+        <ImageContent />
         <InfoTempBox
           title={description}
           temperature={Number(temp.toFixed(1))}
@@ -61,6 +59,9 @@ export const Home = () => {
           wind={speed}
         />
         <ScrollTimeTemp />
+        <TouchableOpacity style={styles.buttonMoreInfo}>
+          <Text style={styles.textMoreInfo}>Mais Informações</Text>
+        </TouchableOpacity>
       </View>
       <ModalView visible={showModal} closeModal={onCloseModal}>
         <View style={styles.contentModal}>

@@ -1,18 +1,24 @@
 import React from 'react';
 
-import { Image, Text, TouchableOpacity } from 'react-native';
-import CardCloud from '~/assets/card-cloud.png';
+import {
+  Image,
+  ImageSourcePropType,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import { colors } from '~/global/styles/theme';
 import { useWeather } from '~/hooks/weather';
+import Icon from 'react-native-vector-icons/Feather';
 
 import { styles } from './styles';
 
 interface TempCardProps {
-  hour: string;
-  temperature: number;
+  title: string;
+  icon: string;
+  info: string | number;
 }
 
-export const TempCard = ({ hour, temperature }: TempCardProps) => {
+export const TempCard = ({ title, icon, info }: TempCardProps) => {
   const { weatherData } = useWeather();
   const { main } = weatherData.weather[0];
   let color;
@@ -40,9 +46,9 @@ export const TempCard = ({ hour, temperature }: TempCardProps) => {
   }
   return (
     <TouchableOpacity style={[styles.container, { backgroundColor: color }]}>
-      <Text style={styles.hour}>{hour}</Text>
-      <Image source={CardCloud} style={styles.image} />
-      <Text style={styles.temp}>{`${temperature}°`}</Text>
+      <Text style={styles.hour}>{title}</Text>
+      <Icon name={icon} size={50} color={colors.secondary} />
+      <Text style={styles.temp}>{info}</Text>
     </TouchableOpacity>
   );
 };

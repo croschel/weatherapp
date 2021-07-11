@@ -10,14 +10,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  image: {
-    width: 220,
-    height: 200,
-    alignSelf: 'center',
+  contentModal: {},
+  buttonMoreInfo: {
+    padding: 16,
+    borderWidth: 2,
+    borderRadius: 16,
+    borderColor: colors.secondary,
     marginTop: 24,
   },
-  contentImage: {
-    alignItems: 'center',
+  textMoreInfo: {
+    color: colors.secondary,
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
-  contentModal: {},
 });
