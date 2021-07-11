@@ -45,7 +45,9 @@ export const TempCard = ({ title, icon, info }: TempCardProps) => {
       break;
   }
   return (
-    <TouchableOpacity style={[styles.container, { backgroundColor: color }]}>
+    <TouchableOpacity
+      disabled={true}
+      style={[styles.container, { backgroundColor: color }]}>
       <Text style={styles.hour}>{title}</Text>
       <Icon name={icon} size={50} color={colors.secondary} />
       <Text style={styles.temp}>{info}</Text>

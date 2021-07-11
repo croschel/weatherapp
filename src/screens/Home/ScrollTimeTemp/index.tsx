@@ -19,7 +19,7 @@ export const ScrollTimeTemp = () => {
         showsHorizontalScrollIndicator={false}
         style={styles.container}>
         <TempCard title="Pressão" icon="globe" info={`${pressure} hpa`} />
-        <TempCard title="Humidade" icon="droplet" info={`${humidity}%`} />
+        <TempCard title="Umidade" icon="droplet" info={`${humidity}%`} />
         <TempCard
           title="Sensação"
           icon="wind"
