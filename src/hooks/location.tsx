@@ -21,6 +21,7 @@ type LocationContextData = {
   location: string;
   searchLocation: (input: string) => void;
   setAddressStorage: (address: string) => void;
+  setGeometryStorage: (geometry: Geometry) => void;
   placesResults: PlacesResults;
 };
 
@@ -57,7 +58,6 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
       });
       const { results } = response.data;
 
-      console.log('response from google :: ', results);
       setPlacesResults(results);
     } catch {
       Alert.alert('Não foi possível encontrar sua posição');
@@ -106,6 +106,10 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
     setAddress(address);
   };
 
+  const setGeometryStorage = (geometry: Geometry) => {
+    setGeometry(geometry);
+  };
+
   useEffect(() => {
     getAddressLocationGPS();
   }, []);
@@ -119,6 +123,7 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
         getAddressLocationInput,
         searchLocation,
         setAddressStorage,
+        setGeometryStorage,
         location,
         placesResults,
       }}>

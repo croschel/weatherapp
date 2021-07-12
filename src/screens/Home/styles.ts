@@ -10,6 +10,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  headerIconsBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rightHeaderIcon: {
+    marginLeft: 24,
+  },
   contentModal: {},
   buttonMoreInfo: {
     padding: 16,

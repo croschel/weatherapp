@@ -19,7 +19,13 @@ import { AddressList } from '~/components/AddressList';
 
 export const Home = () => {
   const { weatherData, getWeather } = useWeather();
-  const { address, placesResults, setAddressStorage } = useLocation();
+  const {
+    address,
+    placesResults,
+    setAddressStorage,
+    setGeometryStorage,
+    geometry,
+  } = useLocation();
 
   const { description, main } = weatherData.weather[0];
   const { temp, humidity } = weatherData.main;
@@ -50,8 +56,13 @@ export const Home = () => {
     const separatedAddress = formatted_address.split(',');
     const cityState = separatedAddress[1];
     setAddressStorage(cityState);
+    setGeometryStorage({ lat, lng });
     getWeather(lat, lng);
     onCloseModal();
+  };
+  const updateDataWeather = () => {
+    const { lat, lng } = geometry;
+    getWeather(lat, lng);
   };
 
   return (
@@ -64,9 +75,16 @@ export const Home = () => {
             onPress={() => chooseLocationModal()}
             location={address}
           />
-          <TouchableOpacity onPress={() => handleNews()}>
-            <Icon name="date-range" size={32} color={colors.primary} />
-          </TouchableOpacity>
+          <View style={styles.headerIconsBox}>
+            <TouchableOpacity onPress={() => updateDataWeather()}>
+              <Icon name="update" size={32} color={colors.primary} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.rightHeaderIcon}
+              onPress={() => handleNews()}>
+              <Icon name="date-range" size={32} color={colors.primary} />
+            </TouchableOpacity>
+          </View>
         </View>
         <ImageContent />
         <InfoTempBox
