@@ -20,17 +20,16 @@ import { useState } from 'react';
 import { LocationInput } from '~/components/LocationInput';
 import { FlexStatusBar } from '~/components/FlexStatusBar';
 import { useEffect } from 'react';
-import { useLocation } from '~/hooks/location';
+import { GeoResult, useLocation } from '~/hooks/location';
 import { useWeather } from '~/hooks/weather';
 import { AddressList } from '~/components/AddressList';
 
 export const Welcome = () => {
   const navigation = useNavigation();
-  const { loadingWeather } = useWeather();
+  const { loadingWeather, getWeather } = useWeather();
+  const { address, loading, placesResults, setAddressStorage } = useLocation();
 
   const [showModal, setShowModal] = useState(false);
-
-  const { address, loading, getAddressLocationInput } = useLocation();
 
   const chooseLocationModal = () => {
     setShowModal(true);
@@ -41,6 +40,16 @@ export const Welcome = () => {
 
   const handleNextButton = () => {
     navigation.navigate('Home');
+  };
+
+  const handleSelectAddress = (address: GeoResult) => {
+    const { formatted_address } = address;
+    const { lat, lng } = address.geometry.location;
+    const separatedAddress = formatted_address.split(',');
+    const cityState = separatedAddress[1];
+    setAddressStorage(cityState);
+    getWeather(lat, lng);
+    onCloseModal();
   };
 
   return (
@@ -91,7 +100,10 @@ export const Welcome = () => {
       <ModalView visible={showModal} closeModal={onCloseModal}>
         <View style={styles.contentModal}>
           <LocationInput />
-          {/* <AddressList data={} /> */}
+          <AddressList
+            data={placesResults}
+            onSelectAddress={(address) => handleSelectAddress(address)}
+          />
         </View>
       </ModalView>
     </Background>

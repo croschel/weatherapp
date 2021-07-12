@@ -12,13 +12,15 @@ import { useNavigation } from '@react-navigation/native';
 import { FlexStatusBar } from '~/components/FlexStatusBar';
 import ModalView from '~/components/ModalView';
 import { LocationInput } from '~/components/LocationInput';
-import { useLocation } from '~/hooks/location';
+import { GeoResult, useLocation } from '~/hooks/location';
 import { useWeather } from '~/hooks/weather';
 import { ImageContent } from './ImageContent';
+import { AddressList } from '~/components/AddressList';
 
 export const Home = () => {
-  const { address } = useLocation();
-  const { weatherData } = useWeather();
+  const { weatherData, getWeather } = useWeather();
+  const { address, placesResults, setAddressStorage } = useLocation();
+
   const { description, main } = weatherData.weather[0];
   const { temp, humidity } = weatherData.main;
   const { speed } = weatherData.wind;
@@ -41,6 +43,17 @@ export const Home = () => {
   const handleDetails = () => {
     navigation.navigate('Details');
   };
+
+  const handleSelectAddress = (address: GeoResult) => {
+    const { formatted_address } = address;
+    const { lat, lng } = address.geometry.location;
+    const separatedAddress = formatted_address.split(',');
+    const cityState = separatedAddress[1];
+    setAddressStorage(cityState);
+    getWeather(lat, lng);
+    onCloseModal();
+  };
+
   return (
     <GradientBackground weather={main}>
       <FlexStatusBar theme="dark" />
@@ -71,7 +84,11 @@ export const Home = () => {
       </View>
       <ModalView visible={showModal} closeModal={onCloseModal}>
         <View style={styles.contentModal}>
-          <LocationInput onPress={() => {}} />
+          <LocationInput />
+          <AddressList
+            data={placesResults}
+            onSelectAddress={(address) => handleSelectAddress(address)}
+          />
         </View>
       </ModalView>
     </GradientBackground>

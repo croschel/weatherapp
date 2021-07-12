@@ -6,6 +6,7 @@ import { GOOGLE_API_KEY } from '@env';
 import { useState } from 'react';
 import { Alert } from 'react-native';
 import { useWeather } from './weather';
+import { VoidFunctionComponent } from 'react';
 
 type Geometry = {
   lat: number;
@@ -19,11 +20,22 @@ type LocationContextData = {
   getAddressLocationInput: (address: string) => void;
   location: string;
   searchLocation: (input: string) => void;
+  setAddressStorage: (address: string) => void;
+  placesResults: PlacesResults;
 };
 
 interface LocationProviderProps {
   children: ReactNode;
 }
+
+export type GeoResult = {
+  formatted_address: string;
+  geometry: {
+    location: Geometry;
+  };
+};
+
+export type PlacesResults = GeoResult[];
 
 export const LocationContext = createContext({} as LocationContextData);
 
@@ -33,6 +45,7 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
   const [address, setAddress] = useState<string>('buscando');
   const [geometry, setGeometry] = useState({} as Geometry);
   const [location, setLocation] = useState('Insira a localização');
+  const [placesResults, setPlacesResults] = useState([] as PlacesResults);
 
   const getAddressLocationInput = async (address: string) => {
     try {
@@ -42,7 +55,10 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
           key: GOOGLE_API_KEY,
         },
       });
-      console.log('response from google :: ', response.data.results);
+      const { results } = response.data;
+
+      console.log('response from google :: ', results);
+      setPlacesResults(results);
     } catch {
       Alert.alert('Não foi possível encontrar sua posição');
     }
@@ -59,6 +75,7 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
               key: GOOGLE_API_KEY,
             },
           });
+          console.log('CurrentPosition :: ', response.data);
           const { compound_code } = response.data.plus_code;
           const separatedAddress = compound_code.split(',');
           const cityState = separatedAddress[1];
@@ -85,6 +102,10 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
     setLocation(input);
   };
 
+  const setAddressStorage = (address: string) => {
+    setAddress(address);
+  };
+
   useEffect(() => {
     getAddressLocationGPS();
   }, []);
@@ -97,7 +118,9 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
         geometry,
         getAddressLocationInput,
         searchLocation,
+        setAddressStorage,
         location,
+        placesResults,
       }}>
       {children}
     </LocationContext.Provider>
