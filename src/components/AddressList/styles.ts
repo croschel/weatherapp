@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 16,
     borderColor: colors.secondary,
+    marginTop: 8,
   },
   text: {
     color: colors.heading,

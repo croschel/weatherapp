@@ -16,6 +16,7 @@ import { GeoResult, useLocation } from '~/hooks/location';
 import { useWeather } from '~/hooks/weather';
 import { ImageContent } from './ImageContent';
 import { AddressList } from '~/components/AddressList';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const Home = () => {
   const { weatherData, getWeather } = useWeather();
@@ -86,20 +87,23 @@ export const Home = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <ImageContent />
-        <InfoTempBox
-          title={description}
-          temperature={Number(temp.toFixed(1))}
-          precipitation={humidity}
-          wind={speed}
-        />
-        <ScrollTimeTemp />
+        <ScrollView>
+          <ImageContent />
+          <InfoTempBox
+            title={description}
+            temperature={Number(temp.toFixed(1))}
+            precipitation={humidity}
+            wind={speed}
+          />
+          <ScrollTimeTemp />
+        </ScrollView>
         <TouchableOpacity
           onPress={() => handleDetails()}
           style={styles.buttonMoreInfo}>
           <Text style={styles.textMoreInfo}>Mais Informações</Text>
         </TouchableOpacity>
       </View>
+
       <ModalView visible={showModal} closeModal={onCloseModal}>
         <View style={styles.contentModal}>
           <LocationInput />

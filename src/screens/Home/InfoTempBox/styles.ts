@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     color: colors.primary,
-    marginTop: 16,
+    marginTop: 8,
   },
   tempText: {
     fontSize: 80,
