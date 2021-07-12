@@ -10,16 +10,13 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '~/global/styles/theme';
+import { useLocation } from '~/hooks/location';
 import { styles } from './styles';
 
-interface LocationInputProps {
-  onPress: () => void;
-}
-
-export const LocationInput = ({ onPress }: LocationInputProps) => {
-  const [location, setLocation] = useState<string>('');
+export const LocationInput = () => {
+  const { searchLocation, getAddressLocationInput, location } = useLocation();
   const handleChangeText = (text: string) => {
-    setLocation(text);
+    searchLocation(text);
   };
   return (
     <View style={styles.container}>
@@ -30,7 +27,9 @@ export const LocationInput = ({ onPress }: LocationInputProps) => {
             placeholder="Digite sua localização"
             onChangeText={(text) => handleChangeText(text)}
           />
-          <TouchableOpacity style={styles.buttonSearch} onPress={onPress}>
+          <TouchableOpacity
+            style={styles.buttonSearch}
+            onPress={() => getAddressLocationInput(location)}>
             <Icon name="search" size={32} color={colors.heading} />
           </TouchableOpacity>
         </View>

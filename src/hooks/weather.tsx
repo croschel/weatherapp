@@ -77,12 +77,13 @@ const WeatherProvider = ({ children }: WeatherProviderProps) => {
       });
       console.log('weather api response :: ', response.data);
       setWeatherData(response.data);
-    } catch (error) {
-      Alert.alert(
-        'Não con seguimos buscar as informações de temperatura, por favor tente novamente.'
-      );
-    } finally {
       setLoadingWeather(false);
+    } catch (error) {
+      setLoadingWeather(true);
+      Alert.alert(
+        'Não conseguimos buscar as informações',
+        'por favor tente novamente.'
+      );
     }
   };
 

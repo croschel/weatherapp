@@ -16,6 +16,9 @@ type LocationContextData = {
   address: string;
   loading: boolean;
   geometry: Geometry;
+  getAddressLocationInput: (address: string) => void;
+  location: string;
+  searchLocation: (input: string) => void;
 };
 
 interface LocationProviderProps {
@@ -29,6 +32,21 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [address, setAddress] = useState<string>('buscando');
   const [geometry, setGeometry] = useState({} as Geometry);
+  const [location, setLocation] = useState('Insira a localização');
+
+  const getAddressLocationInput = async (address: string) => {
+    try {
+      const response = await googleAPI.get('', {
+        params: {
+          address,
+          key: GOOGLE_API_KEY,
+        },
+      });
+      console.log('response from google :: ', response.data.results);
+    } catch {
+      Alert.alert('Não foi possível encontrar sua posição');
+    }
+  };
 
   const getAddressLocationGPS = () => {
     try {
@@ -63,6 +81,10 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
     }
   };
 
+  const searchLocation = (input: string) => {
+    setLocation(input);
+  };
+
   useEffect(() => {
     getAddressLocationGPS();
   }, []);
@@ -73,6 +95,9 @@ const LocationProvider = ({ children }: LocationProviderProps) => {
         address,
         loading,
         geometry,
+        getAddressLocationInput,
+        searchLocation,
+        location,
       }}>
       {children}
     </LocationContext.Provider>

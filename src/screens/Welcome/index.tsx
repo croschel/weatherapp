@@ -22,6 +22,7 @@ import { FlexStatusBar } from '~/components/FlexStatusBar';
 import { useEffect } from 'react';
 import { useLocation } from '~/hooks/location';
 import { useWeather } from '~/hooks/weather';
+import { AddressList } from '~/components/AddressList';
 
 export const Welcome = () => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ export const Welcome = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const { address, loading } = useLocation();
+  const { address, loading, getAddressLocationInput } = useLocation();
 
   const chooseLocationModal = () => {
     setShowModal(true);
@@ -89,7 +90,8 @@ export const Welcome = () => {
       </SafeAreaView>
       <ModalView visible={showModal} closeModal={onCloseModal}>
         <View style={styles.contentModal}>
-          <LocationInput onPress={() => {}} />
+          <LocationInput />
+          {/* <AddressList data={} /> */}
         </View>
       </ModalView>
     </Background>
