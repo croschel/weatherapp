@@ -87,7 +87,7 @@ export const Home = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <ImageContent />
           <InfoTempBox
             title={description}
